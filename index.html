@@ -49,15 +49,11 @@
 const bands = ['The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'Norma Jean', 'The Bled', 'Say Anything', 'The Midway State', 'We Came as Romans', 'Counterparts', 'Oh, Sleeper', 'A Skylit Drive', 'Anywhere But Here', 'An Old Dog'];
 const list = document.querySelector('#bands')
 
-const article = /^(the|a|an)\s/ig
+const stripArticle = (band) => band.replace(/^(the|a|an)\s/ig, '').trim()
+const sortedBands = bands.sort((a, b) => stripArticle(a) > stripArticle(b) ? 1 : -1)
 
-list.innerHTML = bands
-  .map(band => band.replace(article, ''))
-  .sort()
-  .map(s => 
-    `<li>
-      ${bands.find(band => band.match(s))}
-    </li>`)
+list.innerHTML = sortedBands
+  .map(band => `<li>${band}</li>`)
   .join('')
 
 </script>
